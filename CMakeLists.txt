@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(CppConcurrencyInAction 
+project(CppConcurrencyInAction
 	VERSION 1.0.0
 	LANGUAGES CXX
 )
@@ -35,16 +35,22 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 # 添加可执行文件
-add_executable(chapter01_hello_world 
+add_executable(chapter01_hello_world
 	src/chapter01/hello_world.cpp
+)
+
+add_executable(chapter02_managing_threads
+	src/chapter02/main.cpp
 )
 
 # 多线程支持（通常自动链接，但明确指定更安全）
 find_package(Threads REQUIRED)
 target_link_libraries(chapter01_hello_world PRIVATE Threads::Threads)
 
+target_link_libraries(chapter02_managing_threads PRIVATE Threads::Threads)
+
 # 如果有其他章节的代码，可以这样组织：
-# add_executable(chapter2_example 
+# add_executable(chapter2_example
 # 	src/chapter2/example.cpp
 # )
 # target_link_libraries(chapter2_example PRIVATE Threads::Threads)

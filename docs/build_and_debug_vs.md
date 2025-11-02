@@ -71,7 +71,7 @@ cmake -S . -B build -G "Visual Studio 17 2022" -A x64
    - 菜单：`生成` → `生成解决方案`
 
 3. 查看输出：
-   - 可执行文件在 `bin/Debug/test.exe` 或 `bin/Release/test.exe`
+   - 可执行文件在 `bin/Debug/chapter01_hello_world.exe` 或 `bin/Release/chapter01_hello_world.exe`（根据 CMakeLists.txt 中的目标名称）
 
 ### 5. 在 Visual Studio 中调试
 
