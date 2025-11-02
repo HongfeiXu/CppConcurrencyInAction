@@ -1,0 +1,45 @@
+{
+	// ===== 空白字符显示 =====
+	// 显示所有空白字符（包括空格和 tab）
+	"editor.renderWhitespace": "all",
+
+	// ===== 缩进设置（对应 .editorconfig）=====
+	// 使用 Tab 而不是空格
+	"editor.insertSpaces": false,
+
+	// Tab 大小（4 个空格宽度）
+	"editor.tabSize": 4,
+
+	// 禁用自动检测缩进，强制使用我们的设置
+	"editor.detectIndentation": false,
+
+	// ===== 文件格式设置（对应 .editorconfig）=====
+	// 文件编码：UTF-8
+	"files.encoding": "utf8",
+
+	// 行尾格式：CRLF (Windows)
+	"files.eol": "\r\n",
+
+	// 文件末尾自动插入换行符
+	"files.insertFinalNewline": true,
+
+	// 保存时自动删除行尾空白
+	"files.trimTrailingWhitespace": true,
+
+	// ===== C++ 特定设置 =====
+	"C_Cpp.default.cppStandard": "c++20",
+	"C_Cpp.default.intelliSenseMode": "windows-msvc-x64",
+	"C_Cpp.default.compilerPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.*/bin/Hostx64/x64/cl.exe",
+
+	// ===== 文件关联 =====
+	"files.associations": {
+		"*.h": "cpp",
+		"*.hpp": "cpp"
+	},
+
+	// ===== 文件排除（可选）=====
+	"files.exclude": {
+		"**/*.obj": true,
+		"**/*.pdb": true
+	}
+}
