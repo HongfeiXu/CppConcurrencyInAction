@@ -43,6 +43,11 @@ add_executable(chapter02_managing_threads
 	src/chapter02/main.cpp
 )
 
+target_sources(chapter02_managing_threads PRIVATE
+	src/chapter02/wait_a_thread_to_complete.h
+	src/chapter02/pass_param_to_thread.h
+)
+
 # 多线程支持（通常自动链接，但明确指定更安全）
 find_package(Threads REQUIRED)
 target_link_libraries(chapter01_hello_world PRIVATE Threads::Threads)
