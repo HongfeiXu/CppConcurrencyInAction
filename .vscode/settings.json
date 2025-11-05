@@ -10,9 +10,6 @@
 	// Tab 大小（4 个空格宽度）
 	"editor.tabSize": 4,
 
-	// 禁用自动检测缩进，强制使用我们的设置
-	"editor.detectIndentation": false,
-
 	// ===== 文件格式设置（对应 .editorconfig）=====
 	// 文件编码：UTF-8
 	"files.encoding": "utf8",

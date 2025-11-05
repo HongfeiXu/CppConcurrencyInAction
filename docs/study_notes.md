@@ -37,6 +37,7 @@ int main()
 >进一步，思考这个规则的原因。
 
 
+
 ## Chapter 2: Managling threads
 
 ### 主要内容
@@ -47,11 +48,32 @@ int main()
 
 ### 线程的基本操作
 
-等待线程完成
-
-- Using RAII to wait for a thread to complete
+等待线程完成，join 是阻塞操作
 
 ```cpp
+#include <thread>
+#include <iostream>
+#include <chrono>
+
+int main()
+{
+	std::thread t1([](){
+		std::cout << "Hello from thread t1" << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+	});
+
+	t1.join();  // 主线程阻塞，等待t1对应的线程完成
+
+	std::cout << "Hello from main thread" << std::endl; // 主线程继续执行
+
+	return 0;
+}
+```
+
+Using RAII to wait for a thread to complete
+
+```cpp
+// wait_a_thread_to_complete.h
 class thread_guard
 {
 	std::thread& t;
@@ -145,13 +167,55 @@ void move_ownership_to_thread()
 }
 ```
 
-- std::thread 的每个实例都负责管理一个线程（前提是传入了可调用对象）
+- `std::thread` 的每个实例都负责管理一个线程（前提是传入了可调用对象）
 - 线程的所有权可以在多个 `std::thread` 实例中转移（依赖于 `std::thread` 可移动、不可复制）
 - 某个时间点，一个执行线程只被一个 `std::thread` 实例拥有
 
+
 ### 转移所有权
 
-TODO
+`std::thread` 可移动，但不可复制，类似的还有 `std::ifstream`、`std::unique_ptr` 等。
 
+
+例子. 在t1、t2、t3之间转移所有权
+
+```cpp
+void some_function();
+void some_other_function();
+std::thread t1(some_function);
+std::thread t2 = std::move(t1); // 将t1对应的线程的所有权转移给t2，因为t1是一个命名对象，需要显式调用 std::move
+t1 = std::thread(some_other_function); // 临时 std::thread 对象对应的线程启动，所有权转移给t1
+std::thread t3; // 创建一个空的 std::thread 对象，不关联任何线程
+t3 = std::move(t2); // 将 t2 对应的线程的所有权转移给 t3
+t1 = std::move(t3); // 将 t3 对应的线程的所有权转移给 t1，注意：这里会调用 std::terminate() 终止程序，因为 t1 已经关联了一个线程
+```
+
+例子 得到所有权，并负责线程的汇入
+
+```cpp
+// scoped_thread
+// transfer_ownership_of_a_thread.h
+class scoped_thread
+{
+	std::thread t;
+public:
+	explicit scoped_thread(std::thread t_): t(std::move(t_))
+	{
+		if(!t.joinable())
+		{
+			throw std::logic_error("No thread");
+		}
+	}
+	~scoped_thread()
+	{
+		t.join();
+	}
+};
+```
+
+为什么这里需要 `explicit` ？
+1. 防止意外转换：避免无意中将 `std::thread` 隐式转换成 `thread_guard`
+2. 明确意图：强制使用者显式创建 `thread_guard`，说明这是一个重要的资源管理操作
+3. RAII 原则：确保对象创建的明确性和可追踪性
 
 
