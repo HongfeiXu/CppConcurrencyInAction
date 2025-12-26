@@ -31,6 +31,9 @@ public:
 	{
 		t.join();
 	}
+	// 禁止拷贝构造
+	scoped_thread(scoped_thread const&)=delete;
+	scoped_thread& operator=(scoped_thread const&)=delete;
 };
 
 inline void do_something_in_current_thread()
@@ -44,7 +47,7 @@ inline void f()
 	scoped_thread t{std::thread(func(some_local_state))};
 	do_something_in_current_thread();
 
-	//scoped_thread t2{ std::thread() }; // throws logic_error
+	scoped_thread t2{ std::thread() }; // throws logic_error
 }
 
 inline void test()

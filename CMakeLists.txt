@@ -49,6 +49,7 @@ target_sources(chapter02_managing_threads PRIVATE
 	src/chapter02/pass_param_to_thread.h
 	src/chapter02/transfer_ownership_of_a_thread.h
 	src/chapter02/joining_thread.h
+	src/chapter02/batch_create_threads.h
 )
 
 # 多线程支持（通常自动链接，但明确指定更安全）

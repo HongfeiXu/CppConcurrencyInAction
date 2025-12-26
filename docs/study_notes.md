@@ -214,8 +214,10 @@ public:
 ```
 
 为什么这里需要 `explicit` ？
-1. 防止意外转换：避免无意中将 `std::thread` 隐式转换成 `thread_guard`
-2. 明确意图：强制使用者显式创建 `thread_guard`，说明这是一个重要的资源管理操作
+1. 防止意外转换：避免无意中将 `std::thread` 隐式转换成 `scoped_thread`
+2. 明确意图：强制使用者显式创建 `scoped_thread`，说明这是一个重要的资源管理操作
 3. RAII 原则：确保对象创建的明确性和可追踪性
 
+例子 joining_thread 的实现
 
+C++20 中引入了 std::jthread 一个东西，见 joining_thread.h
