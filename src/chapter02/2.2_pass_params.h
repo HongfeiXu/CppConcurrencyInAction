@@ -4,6 +4,11 @@
 #include <iostream>
 
 // 例1：动态变量的指针作为参数传递给线程，可能导致悬空指针问题
+/*
+std::thread 构造函数会拷贝参数，但 C 风格字符串（char*）会被当作指针拷贝，而不是内容
+使用 std::string(buffer) 显式构造一个字符串对象，确保拷贝的是字符串内容
+由于 detach()，线程在后台运行，必须确保所有参数都是独立的副本，不依赖原作用域
+*/
 
 void f(int i, std::string const& s)
 {

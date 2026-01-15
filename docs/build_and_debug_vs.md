@@ -6,10 +6,10 @@
 
 ### 核心工具
 - **编辑器**: Cursor - AI 辅助编程
-- **编译器**: MSVC (Visual Studio 2022 Community)
+- **编译器**: MSVC (Visual Studio 2026 Community)
 - **构建系统**: CMake (>= 3.15)
 - **调试器**: Visual Studio Debugger
-- **IDE**: Visual Studio 2022 - 编译和调试
+- **IDE**: Visual Studio 2026 - 编译和调试
 - **C++ 标准**: C++20
 
 ### Cursor 扩展
@@ -37,7 +37,7 @@
 **方法 A: 使用 CMake Tools（推荐）**
 1. 在 Cursor 中打开命令面板 (`Ctrl + Shift + P`)
 2. 选择 `CMake: Configure`
-3. 选择生成器：`Visual Studio 17 2022`
+3. 选择生成器：`Visual Studio 18 2026`
 4. 生成完成后，`.sln` 文件在 `build/` 目录
 
 **方法 B: 使用任务**
@@ -46,7 +46,7 @@
 
 **方法 C: 命令行**
 ```powershell
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake -S . -B build -G "Visual Studio 18 2026" -A x64
 ```
 
 ### 3. 在 Visual Studio 中打开解决方案
@@ -115,7 +115,7 @@ cmake -S . -B build -G "Visual Studio 17 2022" -A x64
 
 ```batch
 @echo off
-start "" "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe" "%~dp0build\CppConcurrencyInAction.sln"
+start "" "C:\Program Files\Microsoft Visual Studio\2026\Community\Common7\IDE\devenv.exe" "%~dp0build\CppConcurrencyInAction.sln"
 ```
 
 使用方法：

@@ -11,13 +11,13 @@ This is a learning repository for "C++ Concurrency in Action (2nd Edition)" with
 ### CMake Configuration
 ```powershell
 # Configure with Visual Studio generator
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake -S . -B build -G "Visual Studio 18 2026" -A x64
 
 # Configure for Debug (default)
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Debug
+cmake -S . -B build -G "Visual Studio 18 2026" -A x64 -DCMAKE_BUILD_TYPE=Debug
 
 # Configure for Release
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
+cmake -S . -B build -G "Visual Studio 18 2026" -A x64 -DCMAKE_BUILD_TYPE=Release
 ```
 
 ### Build Commands
@@ -204,7 +204,7 @@ See `docs/build_and_debug_vs.md` for detailed debugging workflows.
 
 ## Important Constraints
 
-- **Platform**: Primarily Windows with MSVC (Visual Studio 2022)
+- **Platform**: Primarily Windows with MSVC (Visual Studio 2026)
 - **Line Endings**: CRLF (Windows)
 - **Encoding**: UTF-8
 - **Indentation**: Tabs (width: 4)

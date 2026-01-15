@@ -1,9 +1,16 @@
 #include <thread>
 #include <vector>
 #include <iostream>
+#include <mutex>
+
+
+std::mutex cout_mutex;
+
 
 void do_work(unsigned id)
 {
+	// std::cout is not thread-safe, use a mutex to protect it
+	std::lock_guard<std::mutex> lk(cout_mutex);
 	std::cout << "Thread " << id << " is working." << std::endl;
 }
 

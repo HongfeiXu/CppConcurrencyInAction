@@ -11,7 +11,7 @@
 				"-B",
 				"${workspaceFolder}/build",
 				"-G",
-				"Visual Studio 17 2022",
+				"Visual Studio 18 2026",
 				"-A",
 				"x64"
 			],
@@ -98,7 +98,7 @@
 			"command": "powershell",
 			"args": [
 				"-Command",
-				"$vsPath = 'C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\devenv.exe'; $slnPath = '${workspaceFolder}\\build\\CppConcurrencyInAction.sln'; if (Test-Path $vsPath) { Start-Process -FilePath $vsPath -ArgumentList $slnPath } else { Write-Host 'Visual Studio not found at: ' $vsPath -ForegroundColor Red }"
+				"$vsPath = 'C:\\Program Files\\Microsoft Visual Studio\\2026\\Community\\Common7\\IDE\\devenv.exe'; $slnPath = '${workspaceFolder}\\build\\CppConcurrencyInAction.slnx'; if (Test-Path $vsPath) { Start-Process -FilePath $vsPath -ArgumentList $slnPath } else { Write-Host 'Visual Studio not found at: ' $vsPath -ForegroundColor Red }"
 			],
 			"problemMatcher": [],
 			"presentation": {

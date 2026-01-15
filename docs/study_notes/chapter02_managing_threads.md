@@ -191,6 +191,6 @@ public:
 ## 2.4 确定线程数量
 
 例子 并行版 std::accumulate
-见 parallel_accumulate.h
+见 `2.4_multi_thread_accumulate.h`
 
-TODO 😀😀😀
+TODO 👌👌👌
