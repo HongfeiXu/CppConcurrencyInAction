@@ -43,6 +43,10 @@ add_executable(chapter02_managing_threads
 	src/chapter02/main.cpp
 )
 
+add_executable(chapter03_sharing_data
+	src/chapter03/main.cpp
+)
+
 # 添加头文件
 target_sources(chapter02_managing_threads PRIVATE
 	src/chapter02/2.1_thread_guard.h
@@ -51,6 +55,10 @@ target_sources(chapter02_managing_threads PRIVATE
 	src/chapter02/2.3_joining_thread.h
 	src/chapter02/2.4_batch_threads.h
 	src/chapter02/2.4_multi_thread_accumulate.h
+)
+
+target_sources(chapter03_sharing_data PRIVATE
+	src/chapter03/3.1_data_race.h
 )
 
 # 多线程支持（通常自动链接，但明确指定更安全）

@@ -3,7 +3,7 @@ REM Open Visual Studio Solution
 REM 用法: open_vs.bat
 
 set "SLN_PATH=%~dp0build\CppConcurrencyInAction.slnx"
-set "VS_PATH=C:\Program Files\Microsoft Visual Studio\2026\Community\Common7\IDE\devenv.exe"
+set "VS_PATH=C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\devenv.exe"
 
 if not exist "%SLN_PATH%" (
     echo 错误: 找不到解决方案文件: %SLN_PATH%

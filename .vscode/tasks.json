@@ -95,11 +95,7 @@
 		{
 			"label": "Open Visual Studio",
 			"type": "shell",
-			"command": "powershell",
-			"args": [
-				"-Command",
-				"$vsPath = 'C:\\Program Files\\Microsoft Visual Studio\\2026\\Community\\Common7\\IDE\\devenv.exe'; $slnPath = '${workspaceFolder}\\build\\CppConcurrencyInAction.slnx'; if (Test-Path $vsPath) { Start-Process -FilePath $vsPath -ArgumentList $slnPath } else { Write-Host 'Visual Studio not found at: ' $vsPath -ForegroundColor Red }"
-			],
+			"command": "& 'C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\IDE\\devenv.exe' '${workspaceFolder}\\build\\CppConcurrencyInAction.slnx'",
 			"problemMatcher": [],
 			"presentation": {
 				"reveal": "never",

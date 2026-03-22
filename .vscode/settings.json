@@ -26,7 +26,14 @@
 	// ===== C++ 特定设置 =====
 	"C_Cpp.default.cppStandard": "c++20",
 	"C_Cpp.default.intelliSenseMode": "windows-msvc-x64",
-	"C_Cpp.default.compilerPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.*/bin/Hostx64/x64/cl.exe",
+	"C_Cpp.default.compilerPath": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/*/bin/Hostx64/x64/cl.exe",
+	
+	// ===== CMake Tools 扩展设置 =====
+	"cmake.generator": "Visual Studio 18 2026",
+	"cmake.preferredGenerators": [
+		"Visual Studio 18 2026",
+		"Visual Studio 17 2022"
+	],
 
 	// ===== 文件关联 =====
 	"files.associations": {
