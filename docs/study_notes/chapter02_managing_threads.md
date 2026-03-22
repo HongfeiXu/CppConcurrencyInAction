@@ -62,18 +62,24 @@ public:
 
 ## 2.2 传递参数
 
-- 简单例子：
+### 传参的基本形式
 
 ```cpp
 void f(int i, std::string const& s);
-std::thread t(f, 3, "hello")
+std::thread t(f, 3, "hello");
 ```
 
-- 参数通过值传递：std::thread 构造函数会移动或拷贝参数，不会直接按引用传递。
+---
+
+
+### 参数默认通过值传递而非引用
+
+- ==参数通过值传递：std::thread 构造函数会移动或拷贝参数，不会直接按引用传递。==
 - 需要引用时需包装：要用引用传递时，用 std::ref（可修改）或 std::cref（只读）包装
 - 见如下例子：
 
 ```cpp
+void update_data_for_widget(widget_id w, widget_data& data);
 void pass_reference_to_thread(widget_id w)
 {
 	widget_data data;
@@ -86,8 +92,15 @@ void pass_reference_to_thread(widget_id w)
 }
 ```
 
-- 调用对象的成员函数作为线程函数
-- 此时，std::thread 构造函数的第3个参数，就是成员函数的第1个参数，以此类推
+引申问题：C++如此设计的意义是啥？
+
+答：默认拷贝/移动是 安全默认（避免无意悬空引用、适配异步启动）；std::ref/std::cref 是 显式选择共享别名，把“我要保证生命周期”的责任写清楚。例子里 data 不能直接当 widget_data& 传进去，正是因为默认会 decay/按值处理，不会偷偷绑定到栈上的引用。
+
+---
+
+### 成员函数作为线程入口
+
+- 使用成员函数指针与对象指针；`std::thread` 从第 3 个参数起对应成员函数的第 1 个实参，以此类推
 - 见如下例子
 
 ```cpp
@@ -108,9 +121,13 @@ void call_member_function_as_thread_function()
 }
 ```
 
-- 提供的参数仅支持移动，不能拷贝（如 `std::unique_ptr` 类型参数）
-- 使用移动操作可以将对象转换成函数可接受的实参类型，或满足函数返回值类型要求。
-- 当变量时临时变量时，自动进行移动操作；当原对象是一个命名变量，转移的时候需要使用 `std::move` 进行显式移动。
+---
+
+### 仅可移动实参与 `std::move`
+
+- 提供的参数仅支持移动、不能拷贝（如 `std::unique_ptr`）
+- 使用移动可将对象转换成线程函数可接受的实参类型（或满足返回值等要求）
+- 实参为临时量时常隐式移动；实参为命名变量时，传入线程存储通常需 `std::move` 显式移动
 - 见如下例子
 
 ```cpp
@@ -121,16 +138,19 @@ void move_ownership_to_thread()
 	std::unique_ptr<big_object> p(new big_object);
 	p->prepare_data(42);
 	// 通过在 `std::thread` 构造函数中执行 `std::move(p)`，
-	// `big_object` 对象的所有权首先被转移到新创建的线程的内部存储中，之后再传递给 `proccess_big_object` 函数
+	// `big_object` 对象的所有权首先被转移到新创建的线程的内部存储中，之后再传递给 `process_big_object` 函数
 	std::thread t(process_big_object, std::move(p));
 	t.join();
 }
 ```
 
-- `std::thread` 的每个实例都负责管理一个线程（前提是传入了可调用对象）
-- 线程的所有权可以在多个 `std::thread` 实例中转移（依赖于 `std::thread` 可移动、不可复制）
-- 某个时间点，一个执行线程只被一个 `std::thread` 实例拥有
+---
 
+### 线程句柄的唯一所有权
+
+- 在 `joinable()` 为真时，每个 `std::thread` 对象至多对应一个执行线程；默认构造或已 `join`/`detach` 后不关联线程
+- 线程所有权可在多个 `std::thread` 对象间转移（`std::thread` 可移动、不可复制）
+- 任一时刻，一个已启动的执行线程只被一个 `std::thread` 实例拥有（与下一节「2.3 转移所有权」衔接）
 
 ## 2.3 转移所有权
 
@@ -193,4 +213,3 @@ public:
 例子 并行版 std::accumulate
 见 `2.4_multi_thread_accumulate.h`
 
-TODO 👌👌👌
