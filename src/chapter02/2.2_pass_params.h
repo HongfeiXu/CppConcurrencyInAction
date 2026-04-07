@@ -10,12 +10,12 @@ std::thread 构造函数会拷贝参数，但 C 风格字符串（char*）会被
 由于 detach()，线程在后台运行，必须确保所有参数都是独立的副本，不依赖原作用域
 */
 
-void f(int i, std::string const& s)
+inline void f(int i, std::string const& s)
 {
 	std::cout << "f(" << i << ", " << s << ")" << std::endl;
 }
 
-void oops(int some_param)
+inline void oops(int some_param)
 {
 	char buffer[1024]; // 1
 	sprintf(buffer, "%i", some_param);
@@ -23,7 +23,7 @@ void oops(int some_param)
 	t.detach();
 }
 
-void not_oops(int some_param)
+inline void not_oops(int some_param)
 {
 	char buffer[1024];
 	sprintf(buffer, "%i", some_param);
@@ -52,13 +52,13 @@ public:
 };
 
 
-void update_data_for_widget(widget_id w, widget_data& data)
+inline void update_data_for_widget(widget_id w, widget_data& data)
 {
 	data.update(w);
 }
 
 
-void pass_reference_to_thread(widget_id w)
+inline void pass_reference_to_thread(widget_id w)
 {
 	widget_data data;
 	// data 会被拷贝，以右值的方式传递给 update_data_for_widget，编译出错
@@ -81,7 +81,7 @@ public:
 	}
 };
 
-void call_member_function_as_thread_function()
+inline void call_member_function_as_thread_function()
 {
 	X my_x;
 	std::thread t(&X::do_lengthy_work, &my_x, 42); // 调用 my_x.do_lengthy_work(42)
@@ -89,7 +89,7 @@ void call_member_function_as_thread_function()
 }
 
 
-void test()
+inline void test()
 {
 	// oops(1);
 	not_oops(2);

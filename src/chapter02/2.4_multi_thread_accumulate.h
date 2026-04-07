@@ -97,7 +97,7 @@ T parallel_accumulate(Iterator first, Iterator last, T init)
 }
 
 
-void test()
+inline void test()
 {
 	// 创建足够大的数据集以展示性能差异
 	// 使用5000万个元素，确保有足够的工作量来展示并行优势

@@ -5,7 +5,7 @@
 #include <mutex>
 #include <chrono>
 
-void test_3_1_data_race()
+inline void test_3_1_data_race()
 {
 	std::cout << "--- test_3_1_data_race ---" << std::endl;
 	auto start = std::chrono::high_resolution_clock::now();

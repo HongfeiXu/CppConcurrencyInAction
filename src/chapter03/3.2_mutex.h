@@ -5,7 +5,7 @@
 #include <mutex>
 #include <chrono>
 
-void test_3_2_mutex()
+inline void test_3_2_mutex()
 {
 	std::cout << "--- test_3_2_mutex ---" << std::endl;
 	auto start = std::chrono::high_resolution_clock::now();

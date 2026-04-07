@@ -4,17 +4,21 @@
 #include <mutex>
 
 
-std::mutex cout_mutex;
+inline std::mutex& cout_mutex()
+{
+	static std::mutex m;
+	return m;
+}
 
 
-void do_work(unsigned id)
+inline void do_work(unsigned id)
 {
 	// std::cout is not thread-safe, use a mutex to protect it
-	std::lock_guard<std::mutex> lk(cout_mutex);
+	std::lock_guard<std::mutex> lk(cout_mutex());
 	std::cout << "Thread " << id << " is working." << std::endl;
 }
 
-void f()
+inline void f()
 {
 	std::vector<std::thread> threads;
 
@@ -32,7 +36,7 @@ void f()
 	}
 }
 
-void test()
+inline void test()
 {
 	f();
 }
