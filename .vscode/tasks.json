@@ -3,18 +3,8 @@
 	"tasks": [
 		{
 			"label": "CMake: configure",
-			"type": "shell",
-			"command": "cmake",
-			"args": [
-				"-S",
-				"${workspaceFolder}",
-				"-B",
-				"${workspaceFolder}/build",
-				"-G",
-				"Visual Studio 18 2026",
-				"-A",
-				"x64"
-			],
+			"type": "cmake",
+			"command": "configure",
 			"problemMatcher": [],
 			"group": "build",
 			"presentation": {
@@ -22,86 +12,25 @@
 				"panel": "dedicated"
 			}
 		},
-		// {
-		// 	"label": "CMake: build (Debug)",
-		// 	"type": "shell",
-		// 	"command": "cmake",
-		// 	"args": [
-		// 		"--build",
-		// 		"${workspaceFolder}/build",
-		// 		"--config",
-		// 		"Debug"
-		// 	],
-		// 	"group": {
-		// 		"kind": "build",
-		// 		"isDefault": true
-		// 	},
-		// 	"problemMatcher": {
-		// 		"owner": "cpp",
-		// 		"fileLocation": ["relative", "${workspaceFolder}"],
-		// 		"pattern": {
-		// 			"regexp": "^(.*)\\((\\d+)\\)\\s*:\\s*(error|warning)\\s*(C\\d+)\\s*:\\s*(.*)$",
-		// 			"file": 1,
-		// 			"line": 2,
-		// 			"severity": 3,
-		// 			"code": 4,
-		// 			"message": 5
-		// 		}
-		// 	},
-		// 	"presentation": {
-		// 		"reveal": "always",
-		// 		"panel": "dedicated"
-		// 	}
-		// },
-		// {
-		// 	"label": "CMake: build (Release)",
-		// 	"type": "shell",
-		// 	"command": "cmake",
-		// 	"args": [
-		// 		"--build",
-		// 		"${workspaceFolder}/build",
-		// 		"--config",
-		// 		"Release"
-		// 	],
-		// 	"problemMatcher": {
-		// 		"owner": "cpp",
-		// 		"fileLocation": ["relative", "${workspaceFolder}"],
-		// 		"pattern": {
-		// 			"regexp": "^(.*)\\((\\d+)\\)\\s*:\\s*(error|warning)\\s*(C\\d+)\\s*:\\s*(.*)$",
-		// 			"file": 1,
-		// 			"line": 2,
-		// 			"severity": 3,
-		// 			"code": 4,
-		// 			"message": 5
-		// 		}
-		// 	},
-		// 	"presentation": {
-		// 		"reveal": "always",
-		// 		"panel": "dedicated"
-		// 	}
-		// },
 		{
-			"label": "CMake: clean",
-			"type": "shell",
-			"command": "cmake",
-			"args": [
-				"--build",
-				"${workspaceFolder}/build",
-				"--target",
-				"clean"
-			],
-			"problemMatcher": []
+			"label": "CMake: build (Debug)",
+			"type": "cmake",
+			"command": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": "$gcc",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
 		},
 		{
-			"label": "Open Visual Studio",
-			"type": "shell",
-			"command": "& 'C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\IDE\\devenv.exe' '${workspaceFolder}\\build\\CppConcurrencyInAction.slnx'",
-			"problemMatcher": [],
-			"presentation": {
-				"reveal": "never",
-				"panel": "shared"
-			}
+			"label": "CMake: clean",
+			"type": "cmake",
+			"command": "clean",
+			"problemMatcher": []
 		}
 	]
 }
-

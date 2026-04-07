@@ -8,48 +8,49 @@ This is a learning repository for "C++ Concurrency in Action (2nd Edition)" with
 
 ## Build and Development Commands
 
-### CMake Configuration
-```powershell
-# Configure with Visual Studio generator
-cmake -S . -B build -G "Visual Studio 18 2026" -A x64
+The project uses **CMake Presets** (`CMakePresets.json`) for cross-platform builds. VS Code CMake Tools extension auto-detects presets.
 
-# Configure for Debug (default)
-cmake -S . -B build -G "Visual Studio 18 2026" -A x64 -DCMAKE_BUILD_TYPE=Debug
+### macOS
+```bash
+# Configure + Build (Debug)
+cmake --preset macos-debug
+cmake --build --preset macos-debug
 
-# Configure for Release
-cmake -S . -B build -G "Visual Studio 18 2026" -A x64 -DCMAKE_BUILD_TYPE=Release
-```
-
-### Build Commands
-```powershell
-# Build all targets (Debug)
-cmake --build build --config Debug
-
-# Build all targets (Release)
-cmake --build build --config Release
+# Release
+cmake --preset macos-release
+cmake --build --preset macos-release
 
 # Build specific target
-cmake --build build --config Debug --target chapter02_managing_threads
+cmake --build --preset macos-debug --target chapter02_managing_threads
 
-# Clean build
-cmake --build build --config Debug --target clean
+# Run
+./bin/chapter01_hello_world
+./bin/chapter02_managing_threads
+./bin/chapter03_sharing_data
 ```
 
-### Run Executables
+### Windows
 ```powershell
-# Chapter 1 example
+# Configure + Build (Debug)
+cmake --preset windows-debug
+cmake --build --preset windows-debug
+
+# Release
+cmake --preset windows-release
+cmake --build --preset windows-release
+
+# Build specific target
+cmake --build --preset windows-debug --target chapter02_managing_threads
+
+# Run
 .\bin\Debug\chapter01_hello_world.exe
-
-# Chapter 2 examples
 .\bin\Debug\chapter02_managing_threads.exe
+.\bin\Debug\chapter03_sharing_data.exe
 ```
 
-### Visual Studio Integration
+### Visual Studio Integration (Windows only)
 ```powershell
-# Open solution in Visual Studio
 start build\CppConcurrencyInAction.sln
-
-# Or use the convenience script
 .\open_vs.bat
 ```
 
@@ -65,11 +66,16 @@ src/
 │   └── hello_world.cpp
 ├── chapter02/          # Managing threads
 │   ├── main.cpp        # Entry point - includes one example at a time
-│   ├── wait_a_thread_to_complete.h
-│   ├── pass_param_to_thread.h
-│   ├── transfer_ownership_of_a_thread.h
-│   ├── joining_thread.h
-│   └── batch_create_threads.h
+│   ├── 2.1_thread_guard.h
+│   ├── 2.2_pass_params.h
+│   ├── 2.3_scoped_thread.h
+│   ├── 2.3_joining_thread.h
+│   ├── 2.4_batch_threads.h
+│   └── 2.4_multi_thread_accumulate.h
+├── chapter03/          # Sharing data between threads
+│   ├── main.cpp
+│   ├── 3.1_data_race.h
+│   └── 3.2_mutex.h
 └── chapterNN/          # Future chapters...
 ```
 
@@ -96,21 +102,21 @@ int main() {
 
 ### Adding New Chapters
 
-To add a new chapter (e.g., Chapter 3):
+To add a new chapter (e.g., Chapter 4):
 
-1. Create directory: `src/chapter03/`
+1. Create directory: `src/chapter04/`
 2. Add to `CMakeLists.txt`:
 ```cmake
-add_executable(chapter03_sharing_data
-    src/chapter03/main.cpp
+add_executable(chapter04_example
+    src/chapter04/main.cpp
 )
 
-target_sources(chapter03_sharing_data PRIVATE
-    src/chapter03/example1.h
-    src/chapter03/example2.h
+target_sources(chapter04_example PRIVATE
+    src/chapter04/example1.h
+    src/chapter04/example2.h
 )
 
-target_link_libraries(chapter03_sharing_data PRIVATE Threads::Threads)
+target_link_libraries(chapter04_example PRIVATE Threads::Threads)
 ```
 
 ### RAII Thread Wrappers
@@ -169,12 +175,22 @@ t3 = std::move(t2);
 
 ## Build System Details
 
+### CMake Presets
+
+Cross-platform build is managed via `CMakePresets.json`:
+- **Windows**: Visual Studio 18 2026 generator, x64
+- **macOS**: Ninja generator
+- **Linux**: Ninja generator
+
+Each platform has Debug and Release presets. Presets use `condition` to only show on the matching OS.
+
 ### Compiler Settings
 
 - **Standard**: C++20 (`CMAKE_CXX_STANDARD 20`)
 - **MSVC**: `/W4 /EHsc /permissive-` + `/Zi` (debug info)
-- **Debug**: `/Od` (no optimization) for MSVC, `-g -O0` for GCC/Clang
-- **Output**: Executables go to `bin/Debug/` or `bin/Release/`
+- **GCC/Clang**: `-Wall -Wextra -pedantic`
+- **Debug**: `/Od` for MSVC, `-g -O0` for GCC/Clang
+- **Output**: `bin/` (macOS/Linux), `bin/Debug/` or `bin/Release/` (Windows with VS generator)
 
 ### Multi-threading Support
 
@@ -184,9 +200,9 @@ find_package(Threads REQUIRED)
 target_link_libraries(chapter01_hello_world PRIVATE Threads::Threads)
 ```
 
-## Visual Studio Debugging
+## Visual Studio Debugging (Windows only)
 
-This project is designed for debugging with Visual Studio. Key tools:
+Key debugging tools for concurrent code:
 
 - **Threads Window**: View all threads, IDs, and states
 - **Parallel Stacks**: Visualize thread call stacks
@@ -204,8 +220,8 @@ See `docs/build_and_debug_vs.md` for detailed debugging workflows.
 
 ## Important Constraints
 
-- **Platform**: Primarily Windows with MSVC (Visual Studio 2026)
-- **Line Endings**: CRLF (Windows)
+- **Platform**: Windows (MSVC) + macOS (Apple Clang) + Linux (GCC/Clang)
+- **Line Endings**: Auto-managed via `.gitattributes` (`* text=auto`)
 - **Encoding**: UTF-8
 - **Indentation**: Tabs (width: 4)
 - **No Tests**: This is a learning project; examples are run manually
