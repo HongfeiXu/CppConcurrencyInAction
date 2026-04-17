@@ -1,0 +1,32 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Debug chapter01 (hello_world)",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/bin/chapter01_hello_world",
+			"args": [],
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "Build (Debug)"
+		},
+		{
+			"name": "Debug chapter02 (managing_threads)",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/bin/chapter02_managing_threads",
+			"args": [],
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "Build (Debug)"
+		},
+		{
+			"name": "Debug chapter03 (sharing_data)",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/bin/chapter03_sharing_data",
+			"args": [],
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "Build (Debug)"
+		}
+	]
+}

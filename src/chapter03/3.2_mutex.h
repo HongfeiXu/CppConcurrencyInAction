@@ -23,6 +23,10 @@ inline void test_3_2_mutex()
 		{
 			std::lock_guard<std::mutex> lock(mtx); // 构造时加锁，析构时自动解锁
 			sum += data[i]; // 临界区：只有持有锁的线程能执行
+			if(i % 100000 == 0) // 为了能看到断点看不出的效果这里打印log吧
+			{
+				std::cout << "--t1--" << std::endl;
+			}
 		}
 	});
 	std::thread t2([&] {
@@ -30,6 +34,10 @@ inline void test_3_2_mutex()
 		{
 			std::lock_guard<std::mutex> lock(mtx);
 			sum += data[i];
+			if(i % 100000 == 0)
+			{
+				std::cout << "--t2--" << std::endl;
+			}
 		}
 	});
 	t1.join();
