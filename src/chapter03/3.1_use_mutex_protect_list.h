@@ -29,7 +29,8 @@ inline void test_3_1_use_mutex_protect_list()
 	std::cout << "--- test_3_1_use_mutex_protect_list ---" << std::endl;
 
 	{
-		std::lock_guard<std::mutex> guard(some_mutex);
+		// std::lock_guard<std::mutex> guard(some_mutex); // 传统写法
+		std::lock_guard guard(some_mutex); // C++17 模板类参数推导，模板参数列表可省略
 		some_list.clear();
 	}
 
