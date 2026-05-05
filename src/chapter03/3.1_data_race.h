@@ -1,9 +1,14 @@
+#pragma once
+
 #include <vector>
 #include <thread>
 #include <iostream>
 
 #include <mutex>
 #include <chrono>
+
+namespace chapter03::section_3_1
+{
 
 inline void test_3_1_data_race()
 {
@@ -34,4 +39,6 @@ inline void test_3_1_data_race()
 	auto end = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 	std::cout << "duration = " << duration.count() << "ms" << std::endl;
+}
+
 }

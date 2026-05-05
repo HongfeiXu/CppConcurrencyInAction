@@ -14,6 +14,9 @@ if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE Debug)
 endif()
 
+# 导出编译命令，供 clangd 等编辑器语言服务读取真实编译参数
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # 编译选项
 if(MSVC)
 	# MSVC 特定选项
@@ -60,6 +63,7 @@ target_sources(chapter02_managing_threads PRIVATE
 target_sources(chapter03_sharing_data PRIVATE
 	src/chapter03/3.1_data_race.h
 	src/chapter03/3.2_mutex.h
+	src/chapter03/3.1_use_mutex_protect_list.h
 )
 
 # 多线程支持（通常自动链接，但明确指定更安全）
