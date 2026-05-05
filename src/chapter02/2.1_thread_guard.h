@@ -1,6 +1,10 @@
+#pragma once
+
 #include <thread>
 #include <iostream>
 
+namespace chapter02::section_2_1
+{
 
 struct func
 {
@@ -85,9 +89,11 @@ inline void f_2()
 	do_something_in_current_thread();
 }
 
-inline void test()
+inline void test_2_1_thread_guard()
 {
 	// oops();
 	f_1();
 	f_2();
+}
+
 }

@@ -9,5 +9,5 @@
 
 int main()
 {
-	test();
+	chapter02::section_2_4::test_2_4_multi_thread_accumulate();
 }

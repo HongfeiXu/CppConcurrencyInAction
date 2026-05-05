@@ -1,6 +1,11 @@
+#pragma once
+
 #include <thread>
 #include <iostream>
 #include <chrono>
+
+namespace chapter02::section_2_3
+{
 
 class joining_thread
 {
@@ -95,7 +100,7 @@ public:
 };
 
 
-inline void test()
+inline void test_2_3_joining_thread()
 {
 	joining_thread j1([]{
 		std::cout << "Thread 1 start\n";
@@ -116,3 +121,4 @@ inline void test()
 	std::cout << "Assignment done\n";
 }
 
+}

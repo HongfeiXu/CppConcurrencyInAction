@@ -1,6 +1,11 @@
+#pragma once
+
 #include <thread>
 #include <iostream>
+#include <stdexcept>
 
+namespace chapter02::section_2_3
+{
 
 class func
 {
@@ -50,7 +55,9 @@ inline void f()
 	scoped_thread t2{ std::thread() }; // throws logic_error
 }
 
-inline void test()
+inline void test_2_3_scoped_thread()
 {
 	f();
+}
+
 }

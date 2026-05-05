@@ -1,9 +1,13 @@
+#pragma once
+
 #include <numeric>
 #include <vector>
 #include <iostream>
 #include <thread>
 #include <chrono>
 
+namespace chapter02::section_2_4
+{
 
 // 函数对象：用于在单个线程中累加指定范围内的元素
 template<typename Iterator, typename T>
@@ -97,7 +101,7 @@ T parallel_accumulate(Iterator first, Iterator last, T init)
 }
 
 
-inline void test()
+inline void test_2_4_multi_thread_accumulate()
 {
 	// 创建足够大的数据集以展示性能差异
 	// 使用5000万个元素，确保有足够的工作量来展示并行优势
@@ -187,4 +191,6 @@ inline void test()
 	{
 		std::cout << "Performance is similar" << std::endl;
 	}
+}
+
 }

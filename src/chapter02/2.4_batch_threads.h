@@ -1,8 +1,12 @@
+#pragma once
+
 #include <thread>
 #include <vector>
 #include <iostream>
 #include <mutex>
 
+namespace chapter02::section_2_4
+{
 
 inline std::mutex& cout_mutex()
 {
@@ -36,7 +40,9 @@ inline void f()
 	}
 }
 
-inline void test()
+inline void test_2_4_batch_threads()
 {
 	f();
+}
+
 }

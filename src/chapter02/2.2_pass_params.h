@@ -1,7 +1,12 @@
+#pragma once
+
 #include <string>
 #include <thread>
 #include <cstdio>
 #include <iostream>
+
+namespace chapter02::section_2_2
+{
 
 // 例1：动态变量的指针作为参数传递给线程，可能导致悬空指针问题
 /*
@@ -89,10 +94,12 @@ inline void call_member_function_as_thread_function()
 }
 
 
-inline void test()
+inline void test_2_2_pass_params()
 {
 	// oops(1);
 	not_oops(2);
 	pass_reference_to_thread(widget_id(3));
 	call_member_function_as_thread_function();
+}
+
 }
